@@ -10,10 +10,8 @@ app.get('/api/sms', function(req, res) {
   const from = 're:poizon';
 
   const email = 'maryashin.2014@yandex.ru'
-  const apiKey = 'lE79sqqo0YExECwap62UVSzKd6etgBlkKfxbg8v1sM9NG8NJ0TAGuK7NqMm4'
-  const uri = `https://${email}:${apiKey}@gate.smsaero.ru/v2/sms/send`;
-  const test = 'https://auth.terasms.ru/outbox/send/json';
-  //const test = 'https://auth.terasms.ru/outbox/send?login=maryashin.2014@yandex.ru&password=L46Y3G626V&target=79202972447&sender=terasms&message=test`;
+  const apiKey = '5uRZB7O0UstynQgbBeWNnMsn3nbK'
+  const uri = `https://gate.smsaero.ru/v2/sms/send`;
 
 
   let url = [
@@ -23,23 +21,13 @@ app.get('/api/sms', function(req, res) {
     '&sign=', from
   ].join('');
 
-  const body = {
-    "login": "maryashin.2014@yandex.ru",
-    "password": "L46Y3G626V",
-    "target": 79202972447,
-    "message": "ку-ку",
-    "sender": "terasms.ru"
-
-  }
 
   axios({
     method: 'POST',
-    url: test,
-    /*headers: {
-      'X-Token': apiKey,
-      "Content-Type": 'application/json',
-    },*/
-    data: body
+    url: url,
+    headers: {
+      'Authorization': `Basic ${btoa(email + ':' + apiKey)}`,
+    },
   })
     .then(res => {
       const headerDate = res.headers && res.headers.date ? res.headers.date : 'no response date';
